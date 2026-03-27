@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Dinger Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --border: #222222;
+    --accent: #e8ff47;
+    --text: #f0f0f0;
+    --muted: #555;
+    --dim: #333;
+    --green: #4ade80;
+    --red: #f87171;
+    --gold: #f5c842;
+    --silver: #aaaaaa;
+    --bronze: #cd7f32;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 80px; }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px; position: sticky; top: 0;
+    background: var(--bg); z-index: 100;
+  }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 3px; color: var(--accent); }
+  .logo-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-top: 2px; }
+  .header-right { display: flex; gap: 10px; align-items: center; }
+
+  button { cursor: pointer; border: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; border-radius: 6px; transition: all 0.15s; }
+  .btn-primary { background: var(--accent); color: #000; padding: 8px 16px; }
+  .btn-primary:hover { background: #d4eb2e; }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); padding: 8px 14px; }
+  .btn-ghost:hover { border-color: var(--dim); color: var(--text); }
+  .btn-sm { padding: 5px 10px; font-size: 11px; }
+
+  main { max-width: 1000px; margin: 0 auto; padding: 28px 24px; }
+
+  /* RULES BANNER */
+  .rules {
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex; flex-wrap: wrap; gap: 20px;
+  }
+  .rule-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--muted); }
+  .rule-icon { color: var(--accent); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .rule-item strong { color: var(--text); display: block; font-size: 11px; font-weight: 500; }
+
+  /* STATUS */
+  .status-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .refresh-link { color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; background: none; border: none; font-family: 'DM Mono', monospace; font-size: 11px; padding: 0; }
+
+  /* ALLSTAR TOGGLE */
+  .allstar-bar {
+    background: #1a1500;
+    border: 1px solid #3a3000;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .allstar-bar span { font-size: 13px; color: #d4c800; }
+  .toggle-wrap { display: flex; align-items: center; gap: 8px; }
+  .toggle { position: relative; width: 42px; height: 24px; }
+  .toggle input { display: none; }
+  .toggle-track { position: absolute; inset: 0; background: var(--dim); border-radius: 12px; cursor: pointer; transition: background 0.2s; }
+  .toggle input:checked + .toggle-track { background: var(--accent); }
+  .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: transform 0.2s; pointer-events: none; }
+  .toggle input:checked ~ .toggle-thumb { transform: translateX(18px); }
+  .toggle-label { font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  /* SECTION LABEL */
+  .section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+  /* LEADERBOARD */
+  .leaderboard { display: flex; flex-direction: column; gap: 3px; }
+
+  .mgr-row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    user-select: none;
+  }
+  .mgr-row:hover { border-color: var(--dim); }
+  .mgr-row.expanded { border-color: var(--dim); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .mgr-row.r1 { background: #0f0f00; border-color: #b89600 44; }
+  .mgr-row.r2 { border-color: #44444422; }
+  .mgr-row.r3 { border-color: #7c3b1522; }
+
+  .rank-num { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--muted); text-align: center; line-height: 1; }
+  .rank-num.gold { color: var(--gold); }
+  .rank-num.silver { color: var(--silver); }
+  .rank-num.bronze { color: var(--bronze); }
+
+  .mgr-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .mgr-name { font-weight: 500; font-size: 16px; }
+  .mgr-preview { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .mgr-score { text-align: right; }
+  .total-hr { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--accent); line-height: 1; }
+  .score-sub { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 1px; }
+
+  /* DETAIL */
+  .mgr-detail {
+    display: none;
+    background: var(--surface2);
+    border: 1px solid var(--dim);
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin-bottom: 3px;
+    overflow: hidden;
+  }
+  .mgr-detail.open { display: block; }
+
+  .player-row {
+    display: grid;
+    grid-template-columns: 1fr 60px 56px 70px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .player-row:last-of-type { border-bottom: none; }
+  .player-row.is-dropped { opacity: 0.35; }
+  .player-row.is-dropped .p-name { text-decoration: line-through; }
+  .player-row.top3 { background: #0d0d00; }
+
+  .p-name { font-size: 13px; font-weight: 400; }
+  .p-team { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .p-hr { font-family: 'Bebas Neue', sans-serif; font-size: 26px; text-align: center; }
+  .p-hr.loading { font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--muted); text-align: center; }
+  .p-hr.err { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--red); text-align: center; }
+
+  .league-badge { font-size: 10px; font-family: 'DM Mono', monospace; padding: 3px 7px; border-radius: 4px; text-align: center; display: inline-block; }
+  .al { background: #1a2a3a; color: #60a5fa; }
+  .nl { background: #1a2a1a; color: #4ade80; }
+
+  .drop-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); font-size: 10px; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.15s; white-space: nowrap; }
+  .drop-btn:hover { border-color: var(--red); color: var(--red); }
+  .drop-btn.active { border-color: var(--red); color: var(--red); background: #1a0808; }
+
+  .detail-footer { padding: 10px 18px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+  .detail-footer-note { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  /* MODAL */
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+  .overlay.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--dim); border-radius: 12px; width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; padding: 28px; }
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: var(--accent); margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 1px; display: block; margin-bottom: 6px; }
+  input[type=text], select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 9px 12px; outline: none; transition: border-color .15s; }
+  input[type=text]:focus, select:focus { border-color: var(--accent); }
+  input::placeholder { color: var(--dim); }
+  select option { background: var(--surface); }
+  .p-inputs { display: flex; flex-direction: column; gap: 10px; margin-bottom: 6px; }
+  .p-input-grid { display: grid; grid-template-columns: 1fr 90px; gap: 8px; }
+  .p-input-grid2 { display: grid; grid-template-columns: 1fr 80px; gap: 8px; margin-top: 4px; }
+  .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
+  .hint { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 6px; line-height: 1.5; }
+  .hint a { color: var(--accent); }
+
+  /* PRIZING */
+  .prize-bar {
+    display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap;
+  }
+  .prize-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    flex: 1; min-width: 130px;
+    text-align: center;
+  }
+  .prize-place { font-family: 'Bebas Neue', sans-serif; font-size: 20px; }
+  .prize-amount { font-size: 22px; font-weight: 500; color: var(--accent); }
+  .prize-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  @media (max-width: 600px) {
+    .player-row { grid-template-columns: 1fr 50px 46px 60px; gap: 6px; padding: 8px 12px; }
+    main { padding: 16px; }
+    header { padding: 0 16px; }
+    .total-hr { font-size: 32px; }
+    .rules { flex-direction: column; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">2026 Dinger Challenge</div>
+    <div class="logo-sub">$50 BUY-IN · 10 MANAGERS</div>
+  </div>
+  <div class="header-right">
+    <button class="btn-ghost btn-sm" onclick="openAdd()">+ Add Manager</button>
+    <button class="btn-primary btn-sm" onclick="refreshAll()">↺ Live HRs</button>
+  </div>
+</header>
+
+<main>
+
+  <div class="rules">
+    <div class="rule-item"><span class="rule-icon">⚾</span><div><strong>4 Players Drafted</strong>2 AL / 2 NL required</div></div>
+    <div class="rule-item"><span class="rule-icon">🚫</span><div><strong>Ineligible</strong>Top 10 FanDuel HR favorites</div></div>
+    <div class="rule-item"><span class="rule-icon">⭐</span><div><strong>All-Star Break</strong>Lock in 3 players, drop 1</div></div>
+    <div class="rule-item"><span class="rule-icon">🏆</span><div><strong>Win Condition</strong>Most HRs combined (top 3)</div></div>
+    <div class="rule-item"><span class="rule-icon">📏</span><div><strong>Tiebreaker</strong>Most HRs over 450 feet</div></div>
+  </div>
+
+  <div class="prize-bar">
+    <div class="prize-card" style="border-color:#b8960066; flex: 2; text-align:center;">
+      <div class="prize-place" style="color:var(--gold); font-size:22px;">🏆 WINNER TAKES ALL</div>
+      <div class="prize-amount" style="font-size:36px;">$500</div>
+      <div class="prize-label">10 managers × $50 buy-in</div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <div class="dot"></div>
+    <span id="status-text">Loading...</span>
+    <span>·</span>
+    <span id="last-updated">—</span>
+    <span>·</span>
+    <button class="refresh-link" onclick="refreshAll()">refresh now</button>
+  </div>
+
+  <div class="allstar-bar">
+    <span>⭐ All-Star Break Mode — show top 3 only (drop 1 player per manager)</span>
+    <div class="toggle-wrap">
+      <span class="toggle-label" id="toggle-label">OFF</span>
+      <label class="toggle">
+        <input type="checkbox" id="allstar-toggle" onchange="toggleAllstar()">
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>
+    </div>
+  </div>
+
+  <div class="section-label">STANDINGS</div>
+  <div class="leaderboard" id="leaderboard"></div>
+
+</main>
+
+<!-- ADD MANAGER MODAL -->
+<div class="overlay" id="modal" onclick="overlayClick(event)">
+  <div class="modal">
+    <div class="modal-title">Add Manager</div>
+    <div class="modal-sub">Enter name and their 4 drafted players. Find player IDs at mlb.com — the number in the player's URL is their ID.</div>
+    <div class="form-group">
+      <label class="form-label">MANAGER NAME</label>
+      <input type="text" id="inp-name" placeholder="e.g. Nik" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">PLAYERS</label>
+      <div class="p-inputs" id="p-inputs"></div>
+      <div class="hint">Find IDs at <a href="https://www.mlb.com/players" target="_blank">mlb.com/players</a> — click a player, copy the number from the URL</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveManager()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const KEY = 'dinger26';
+let state = { managers: [], allstar: false };
+let cache = {};
+
+const SEED = [
+  {
+    name: 'Brian',
+    players: [
+      { name: 'Brent Rooker',    id: '667670', team: 'Athletics',  league: 'AL' },
+      { name: 'Manny Machado',   id: '592518', team: 'Padres',     league: 'NL' },
+      { name: 'Austin Riley',    id: '663586', team: 'Braves',     league: 'NL' },
+      { name: 'Josh Naylor',     id: '647304', team: 'Mariners',   league: 'AL' },
+    ]
+  },
+  {
+    name: 'Foley',
+    players: [
+      { name: 'Ronald Acuña Jr.', id: '660670', team: 'Braves',   league: 'NL' },
+      { name: 'Bobby Witt Jr.',   id: '677951', team: 'Royals',   league: 'AL' },
+      { name: 'Ben Rice',         id: '701538', team: 'Yankees',  league: 'AL' },
+      { name: 'Hunter Goodman',   id: '672275', team: 'Rockies',  league: 'NL' },
+    ]
+  },
+  {
+    name: 'Dan',
+    players: [
+      { name: 'Fernando Tatis Jr.',    id: '665487', team: 'Padres',      league: 'NL' },
+      { name: 'Jac Caglianone',        id: '694973', team: 'Royals',      league: 'AL' },
+      { name: 'Pete Crow-Armstrong',   id: '691027', team: 'Cubs',        league: 'NL' },
+      { name: 'Riley Greene',          id: '682985', team: 'Tigers',      league: 'AL' },
+    ]
+  },
+  {
+    name: 'Parm',
+    players: [
+      { name: 'Julio Rodríguez',    id: '677594', team: 'Mariners', league: 'AL' },
+      { name: 'Jo Adell',           id: '672515', team: 'Angels',   league: 'AL' },
+      { name: 'Teoscar Hernández',  id: '606192', team: 'Dodgers',  league: 'NL' },
+      { name: 'Francisco Lindor',   id: '596019', team: 'Mets',     league: 'NL' },
+    ]
+  },
+  {
+    name: 'Miller',
+    players: [
+      { name: 'Munetaka Murakami', id: '808959', team: 'White Sox', league: 'AL' },
+      { name: 'Kyle Tucker',       id: '663656', team: 'Dodgers',   league: 'NL' },
+      { name: 'Jackson Chourio',   id: '694192', team: 'Brewers',   league: 'NL' },
+      { name: 'Mike Trout',        id: '545361', team: 'Angels',    league: 'AL' },
+    ]
+  },
+  {
+    name: 'Rohs',
+    players: [
+      { name: 'Yordan Alvarez',  id: '670541', team: 'Astros', league: 'AL' },
+      { name: 'Rafael Devers',   id: '646240', team: 'Giants', league: 'NL' },
+      { name: 'Corbin Carroll',  id: '682998', team: 'D-backs', league: 'NL' },
+      { name: 'Royce Lewis',     id: '668679', team: 'Twins',  league: 'AL' },
+    ]
+  },
+  {
+    name: 'JJ',
+    players: [
+      { name: 'Roman Anthony',   id: '701444', team: 'Red Sox',   league: 'AL' },
+      { name: 'James Wood',      id: '695578', team: 'Nationals', league: 'NL' },
+      { name: 'Bryce Harper',    id: '547180', team: 'Phillies',  league: 'NL' },
+      { name: 'Wyatt Langford',  id: '694297', team: 'Rangers',   league: 'AL' },
+    ]
+  },
+  {
+    name: 'Aidan',
+    players: [
+      { name: 'Gunnar Henderson',    id: '683002', team: 'Orioles', league: 'AL' },
+      { name: 'Vinnie Pasquantino',  id: '686469', team: 'Royals',  league: 'AL' },
+      { name: 'Ketel Marte',         id: '606466', team: 'D-backs', league: 'NL' },
+      { name: 'Seiya Suzuki',        id: '673548', team: 'Cubs',    league: 'NL' },
+    ]
+  },
+  {
+    name: 'Mac',
+    players: [
+      { name: 'Tyler Soderstrom', id: '695273', team: 'Athletics', league: 'AL' },
+      { name: 'Michael Busch',    id: '683737', team: 'Cubs',      league: 'NL' },
+      { name: 'Jazz Chisholm Jr.',id: '665862', team: 'Yankees',   league: 'AL' },
+      { name: "O'Neil Cruz",      id: '665833', team: 'Pirates',   league: 'NL' },
+    ]
+  },
+  {
+    name: 'Nik',
+    players: [
+      { name: 'Eugenio Suárez',      id: '543939', team: 'Reds',   league: 'NL' },
+      { name: 'Byron Buxton',        id: '621439', team: 'Twins',  league: 'AL' },
+      { name: 'Colson Montgomery',   id: '695579', team: 'White Sox', league: 'AL' },
+      { name: 'Elly De La Cruz',     id: '682829', team: 'Reds',   league: 'NL' },
+    ]
+  },
+];
+
+// ── STORAGE ───────────────────────────────────────────────────────────────────
+function persist() { localStorage.setItem(KEY, JSON.stringify(state)); }
+
+function hydrate() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) { state = JSON.parse(raw); }
+    else { state.managers = SEED.map(m => ({ ...m, players: m.players.map(p => ({...p, dropped: false})) })); persist(); }
+  } catch(e) {
+    state.managers = SEED.map(m => ({ ...m, players: m.players.map(p => ({...p, dropped: false})) }));
+  }
+}
+
+// ── MLB API ───────────────────────────────────────────────────────────────────
+async function fetchHR(id) {
+  if (!id) return null;
+  try {
+    const r = await fetch(`https://statsapi.mlb.com/api/v1/people/${id}/stats?stats=season&season=2026&group=hitting`);
+    const d = await r.json();
+    const splits = d?.stats?.[0]?.splits;
+    if (splits && splits.length) return parseInt(splits[0].stat.homeRuns) || 0;
+    return 0;
+  } catch { return null; }
+}
+
+async function refreshAll() {
+  document.getElementById('status-text').textContent = 'Fetching live stats...';
+  const ids = [...new Set(state.managers.flatMap(m => m.players.map(p => p.id)).filter(Boolean))];
+  await Promise.all(ids.map(async id => {
+    const hr = await fetchHR(id);
+    if (hr !== null) cache[id] = hr;
+  }));
+  const now = new Date();
+  document.getElementById('last-updated').textContent = `Updated ${now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}`;
+  document.getElementById('status-text').textContent = 'Live';
+  render();
+}
+
+// ── SCORING ───────────────────────────────────────────────────────────────────
+function score(manager) {
+  const players = manager.players.map(p => ({
+    ...p,
+    hr: p.id && cache[p.id] !== undefined ? cache[p.id] : null
+  }));
+
+  let active = players.filter(p => !p.dropped);
+  let sorted = [...active].sort((a,b) => (b.hr ?? -1) - (a.hr ?? -1));
+  let top3 = sorted.slice(0, 3);
+  let total = top3.reduce((s,p) => s + (typeof p.hr === 'number' ? p.hr : 0), 0);
+  let top3ids = new Set(top3.map(p => p.id));
+  return { players, total, top3ids };
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function render() {
+  const lb = document.getElementById('leaderboard');
+
+  const scored = state.managers.map((m, idx) => ({ ...m, idx, ...score(m) }));
+  scored.sort((a,b) => b.total - a.total);
+
+  lb.innerHTML = scored.map((m, rank) => {
+    const rankClass = rank === 0 ? 'r1' : rank === 1 ? 'r2' : rank === 2 ? 'r3' : '';
+    const rankColor = rank === 0 ? 'gold' : rank === 1 ? 'silver' : rank === 2 ? 'bronze' : '';
+    const preview = m.players.map(p => p.name.split(' ').pop()).join(' · ');
+
+    const rows = m.players.map(p => {
+      const hr = p.id && cache[p.id] !== undefined ? cache[p.id] : null;
+      const hrDisplay = hr !== null ? hr : (p.id ? '…' : '—');
+      const hrClass = hr !== null ? '' : 'loading';
+      const isTop3 = m.top3ids.has(p.id) && !p.dropped;
+      const isDropped = p.dropped;
+      const leagueClass = p.league === 'AL' ? 'al' : 'nl';
+
+      return `<div class="player-row ${isDropped ? 'is-dropped' : ''} ${isTop3 && state.allstar ? 'top3' : ''}">
+        <div>
+          <div class="p-name">${p.name}</div>
+          <div class="p-team">${p.team} · ${p.league}</div>
+        </div>
+        <div class="p-hr ${hrClass}">${hrDisplay}</div>
+        <div><span class="league-badge ${leagueClass}">${p.league}</span></div>
+        <button class="drop-btn ${isDropped ? 'active' : ''}" onclick="toggleDrop(${m.idx},'${p.id}',event)">${isDropped ? 'RESTORE' : 'DROP'}</button>
+      </div>`;
+    }).join('');
+
+    const top3note = state.allstar
+      ? `<span class="detail-footer-note">⭐ Highlighted = counting toward score</span>`
+      : `<span class="detail-footer-note">Top 3 active players count at All-Star break</span>`;
+
+    return `
+      <div class="mgr-row ${rankClass}" onclick="toggleDetail(${m.idx},this)">
+        <div class="rank-num ${rankColor}">${rank + 1}</div>
+        <div class="mgr-info">
+          <div class="mgr-name">${m.name}</div>
+          <div class="mgr-preview">${preview}</div>
+        </div>
+        <div class="mgr-score">
+          <div class="total-hr">${m.total}</div>
+          <div class="score-sub">TOP 3 HRS</div>
+        </div>
+      </div>
+      <div class="mgr-detail" id="d-${m.idx}">
+        ${rows}
+        <div class="detail-footer">
+          ${top3note}
+          <button class="btn-ghost btn-sm" style="color:var(--red);border-color:#f8717133;" onclick="removeManager(${m.idx},event)">Remove</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleDetail(idx, row) {
+  const d = document.getElementById(`d-${idx}`);
+  const isOpen = d.classList.contains('open');
+  document.querySelectorAll('.mgr-detail').forEach(x => x.classList.remove('open'));
+  document.querySelectorAll('.mgr-row').forEach(x => x.classList.remove('expanded'));
+  if (!isOpen) { d.classList.add('open'); row.classList.add('expanded'); }
+}
+
+function toggleDrop(idx, pid, e) {
+  e.stopPropagation();
+  const m = state.managers[idx];
+  const p = m.players.find(x => x.id === pid);
+  if (p) { p.dropped = !p.dropped; persist(); render(); reopen(idx); }
+}
+
+function reopen(idx) {
+  const d = document.getElementById(`d-${idx}`);
+  const r = document.querySelector(`.mgr-row[onclick*="toggleDetail(${idx},"]`);
+  if (d) d.classList.add('open');
+  if (r) r.classList.add('expanded');
+}
+
+function removeManager(idx, e) {
+  e.stopPropagation();
+  if (!confirm('Remove this manager?')) return;
+  state.managers.splice(idx, 1);
+  persist(); render();
+}
+
+function toggleAllstar() {
+  state.allstar = document.getElementById('allstar-toggle').checked;
+  document.getElementById('toggle-label').textContent = state.allstar ? 'ON' : 'OFF';
+  persist(); render();
+}
+
+// ── ADD MANAGER MODAL ─────────────────────────────────────────────────────────
+function openAdd() {
+  document.getElementById('inp-name').value = '';
+  const inp = document.getElementById('p-inputs');
+  inp.innerHTML = [1,2,3,4].map(i => `
+    <div class="p-input-grid">
+      <input type="text" placeholder="Player ${i} name" id="p${i}n" />
+      <input type="text" placeholder="MLB ID" id="p${i}id" />
+    </div>
+    <div class="p-input-grid2">
+      <input type="text" placeholder="Team (e.g. Reds)" id="p${i}t" />
+      <select id="p${i}l"><option value="">League</option><option value="AL">AL</option><option value="NL">NL</option></select>
+    </div>
+  `).join('<div style="height:4px"></div>');
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function overlayClick(e) { if (e.target.id === 'modal') closeModal(); }
+
+function saveManager() {
+  const name = document.getElementById('inp-name').value.trim();
+  if (!name) { alert('Enter a name'); return; }
+  const players = [1,2,3,4].map(i => ({
+    name: document.getElementById(`p${i}n`).value.trim(),
+    id: document.getElementById(`p${i}id`).value.trim(),
+    team: document.getElementById(`p${i}t`).value.trim(),
+    league: document.getElementById(`p${i}l`).value,
+    dropped: false
+  })).filter(p => p.name);
+  if (!players.length) { alert('Add at least one player'); return; }
+  state.managers.push({ name, players });
+  persist(); closeModal(); render(); refreshAll();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+hydrate();
+if (state.allstar) {
+  document.getElementById('allstar-toggle').checked = true;
+  document.getElementById('toggle-label').textContent = 'ON';
+}
+render();
+refreshAll();
+</script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -25,189 +26,190 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 80px; }
 
-  header {
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 64px; position: sticky; top: 0;
-    background: var(--bg); z-index: 100;
-  }
-  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 3px; color: var(--accent); }
-  .logo-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-top: 2px; }
-  .header-right { display: flex; gap: 10px; align-items: center; }
+header {
+border-bottom: 1px solid var(–border);
+padding: 0 24px;
+display: flex; align-items: center; justify-content: space-between;
+height: 64px; position: sticky; top: 0;
+background: var(–bg); z-index: 100;
+}
+.logo { font-family: ‘Bebas Neue’, sans-serif; font-size: 26px; letter-spacing: 3px; color: var(–accent); }
+.logo-sub { font-family: ‘DM Mono’, monospace; font-size: 11px; color: var(–muted); letter-spacing: 1px; margin-top: 2px; }
+.header-right { display: flex; gap: 10px; align-items: center; }
 
-  button { cursor: pointer; border: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; border-radius: 6px; transition: all 0.15s; }
-  .btn-primary { background: var(--accent); color: #000; padding: 8px 16px; }
-  .btn-primary:hover { background: #d4eb2e; }
-  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); padding: 8px 14px; }
-  .btn-ghost:hover { border-color: var(--dim); color: var(--text); }
-  .btn-sm { padding: 5px 10px; font-size: 11px; }
+button { cursor: pointer; border: none; font-family: ‘DM Sans’, sans-serif; font-size: 13px; font-weight: 500; border-radius: 6px; transition: all 0.15s; }
+.btn-primary { background: var(–accent); color: #000; padding: 8px 16px; }
+.btn-primary:hover { background: #d4eb2e; }
+.btn-ghost { background: transparent; color: var(–muted); border: 1px solid var(–border); padding: 8px 14px; }
+.btn-ghost:hover { border-color: var(–dim); color: var(–text); }
+.btn-sm { padding: 5px 10px; font-size: 11px; }
 
-  main { max-width: 1000px; margin: 0 auto; padding: 28px 24px; }
+main { max-width: 1000px; margin: 0 auto; padding: 28px 24px; }
 
-  /* RULES BANNER */
-  .rules {
-    background: #0f0f0f;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-bottom: 28px;
-    display: flex; flex-wrap: wrap; gap: 20px;
-  }
-  .rule-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--muted); }
-  .rule-icon { color: var(--accent); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-  .rule-item strong { color: var(--text); display: block; font-size: 11px; font-weight: 500; }
+/* RULES BANNER */
+.rules {
+background: #0f0f0f;
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 16px 20px;
+margin-bottom: 28px;
+display: flex; flex-wrap: wrap; gap: 20px;
+}
+.rule-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(–muted); }
+.rule-icon { color: var(–accent); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.rule-item strong { color: var(–text); display: block; font-size: 11px; font-weight: 500; }
 
-  /* STATUS */
-  .status-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-  .refresh-link { color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; background: none; border: none; font-family: 'DM Mono', monospace; font-size: 11px; padding: 0; }
+/* STATUS */
+.status-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-family: ‘DM Mono’, monospace; font-size: 11px; color: var(–muted); flex-wrap: wrap; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(–green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.refresh-link { color: var(–accent); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; background: none; border: none; font-family: ‘DM Mono’, monospace; font-size: 11px; padding: 0; }
 
-  /* ALLSTAR TOGGLE */
-  .allstar-bar {
-    background: #1a1500;
-    border: 1px solid #3a3000;
-    border-radius: 8px;
-    padding: 12px 18px;
-    margin-bottom: 24px;
-    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  }
-  .allstar-bar span { font-size: 13px; color: #d4c800; }
-  .toggle-wrap { display: flex; align-items: center; gap: 8px; }
-  .toggle { position: relative; width: 42px; height: 24px; }
-  .toggle input { display: none; }
-  .toggle-track { position: absolute; inset: 0; background: var(--dim); border-radius: 12px; cursor: pointer; transition: background 0.2s; }
-  .toggle input:checked + .toggle-track { background: var(--accent); }
-  .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: transform 0.2s; pointer-events: none; }
-  .toggle input:checked ~ .toggle-thumb { transform: translateX(18px); }
-  .toggle-label { font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; }
+/* ALLSTAR TOGGLE */
+.allstar-bar {
+background: #1a1500;
+border: 1px solid #3a3000;
+border-radius: 8px;
+padding: 12px 18px;
+margin-bottom: 24px;
+display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.allstar-bar span { font-size: 13px; color: #d4c800; }
+.toggle-wrap { display: flex; align-items: center; gap: 8px; }
+.toggle { position: relative; width: 42px; height: 24px; }
+.toggle input { display: none; }
+.toggle-track { position: absolute; inset: 0; background: var(–dim); border-radius: 12px; cursor: pointer; transition: background 0.2s; }
+.toggle input:checked + .toggle-track { background: var(–accent); }
+.toggle-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: transform 0.2s; pointer-events: none; }
+.toggle input:checked ~ .toggle-thumb { transform: translateX(18px); }
+.toggle-label { font-size: 12px; color: var(–muted); font-family: ‘DM Mono’, monospace; }
 
-  /* SECTION LABEL */
-  .section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+/* SECTION LABEL */
+.section-label { font-family: ‘DM Mono’, monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(–muted); margin-bottom: 10px; }
 
-  /* LEADERBOARD */
-  .leaderboard { display: flex; flex-direction: column; gap: 3px; }
+/* LEADERBOARD */
+.leaderboard { display: flex; flex-direction: column; gap: 3px; }
 
-  .mgr-row {
-    display: grid;
-    grid-template-columns: 36px 1fr auto;
-    align-items: center;
-    gap: 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 18px;
-    cursor: pointer;
-    transition: border-color 0.15s;
-    user-select: none;
-  }
-  .mgr-row:hover { border-color: var(--dim); }
-  .mgr-row.expanded { border-color: var(--dim); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-  .mgr-row.r1 { background: #0f0f00; border-color: #b89600 44; }
-  .mgr-row.r2 { border-color: #44444422; }
-  .mgr-row.r3 { border-color: #7c3b1522; }
+.mgr-row {
+display: grid;
+grid-template-columns: 36px 1fr auto;
+align-items: center;
+gap: 16px;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 14px 18px;
+cursor: pointer;
+transition: border-color 0.15s;
+user-select: none;
+}
+.mgr-row:hover { border-color: var(–dim); }
+.mgr-row.expanded { border-color: var(–dim); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.mgr-row.r1 { background: #0f0f00; border-color: #b89600 44; }
+.mgr-row.r2 { border-color: #44444422; }
+.mgr-row.r3 { border-color: #7c3b1522; }
 
-  .rank-num { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--muted); text-align: center; line-height: 1; }
-  .rank-num.gold { color: var(--gold); }
-  .rank-num.silver { color: var(--silver); }
-  .rank-num.bronze { color: var(--bronze); }
+.rank-num { font-family: ‘Bebas Neue’, sans-serif; font-size: 24px; color: var(–muted); text-align: center; line-height: 1; }
+.rank-num.gold { color: var(–gold); }
+.rank-num.silver { color: var(–silver); }
+.rank-num.bronze { color: var(–bronze); }
 
-  .mgr-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-  .mgr-name { font-weight: 500; font-size: 16px; }
-  .mgr-preview { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mgr-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.mgr-name { font-weight: 500; font-size: 16px; }
+.mgr-preview { font-size: 11px; color: var(–muted); font-family: ‘DM Mono’, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  .mgr-score { text-align: right; }
-  .total-hr { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--accent); line-height: 1; }
-  .score-sub { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 1px; }
+.mgr-score { text-align: right; }
+.total-hr { font-family: ‘Bebas Neue’, sans-serif; font-size: 40px; color: var(–accent); line-height: 1; }
+.score-sub { font-size: 10px; color: var(–muted); font-family: ‘DM Mono’, monospace; letter-spacing: 1px; }
 
-  /* DETAIL */
-  .mgr-detail {
-    display: none;
-    background: var(--surface2);
-    border: 1px solid var(--dim);
-    border-top: none;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    margin-bottom: 3px;
-    overflow: hidden;
-  }
-  .mgr-detail.open { display: block; }
+/* DETAIL */
+.mgr-detail {
+display: none;
+background: var(–surface2);
+border: 1px solid var(–dim);
+border-top: none;
+border-bottom-left-radius: 8px;
+border-bottom-right-radius: 8px;
+margin-bottom: 3px;
+overflow: hidden;
+}
+.mgr-detail.open { display: block; }
 
-  .player-row {
-    display: grid;
-    grid-template-columns: 1fr 60px 56px 70px;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 18px;
-    border-bottom: 1px solid var(--border);
-  }
-  .player-row:last-of-type { border-bottom: none; }
-  .player-row.is-dropped { opacity: 0.35; }
-  .player-row.is-dropped .p-name { text-decoration: line-through; }
-  .player-row.top3 { background: #0d0d00; }
+.player-row {
+display: grid;
+grid-template-columns: 1fr 50px 55px 56px 70px;
+align-items: center;
+gap: 10px;
+padding: 10px 18px;
+border-bottom: 1px solid var(–border);
+}
+.player-row:last-of-type { border-bottom: none; }
+.player-row.is-dropped { opacity: 0.35; }
+.player-row.is-dropped .p-name { text-decoration: line-through; }
+.player-row.top3 { background: #0d0d00; }
 
-  .p-name { font-size: 13px; font-weight: 400; }
-  .p-team { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.p-name { font-size: 13px; font-weight: 400; }
+.p-team { font-size: 11px; color: var(–muted); margin-top: 2px; }
 
-  .p-hr { font-family: 'Bebas Neue', sans-serif; font-size: 26px; text-align: center; }
-  .p-hr.loading { font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--muted); text-align: center; }
-  .p-hr.err { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--red); text-align: center; }
+.p-hr { font-family: ‘Bebas Neue’, sans-serif; font-size: 26px; text-align: center; }
+.p-hr.loading { font-size: 12px; font-family: ‘DM Sans’, sans-serif; color: var(–muted); text-align: center; }
+.p-hr.err { font-size: 11px; font-family: ‘DM Mono’, monospace; color: var(–red); text-align: center; }
 
-  .league-badge { font-size: 10px; font-family: 'DM Mono', monospace; padding: 3px 7px; border-radius: 4px; text-align: center; display: inline-block; }
-  .al { background: #1a2a3a; color: #60a5fa; }
-  .nl { background: #1a2a1a; color: #4ade80; }
+.league-badge { font-size: 10px; font-family: ‘DM Mono’, monospace; padding: 3px 7px; border-radius: 4px; text-align: center; display: inline-block; }
+.al { background: #1a2a3a; color: #60a5fa; }
+.nl { background: #1a2a1a; color: #4ade80; }
 
-  .drop-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); font-size: 10px; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.15s; white-space: nowrap; }
-  .drop-btn:hover { border-color: var(--red); color: var(--red); }
-  .drop-btn.active { border-color: var(--red); color: var(--red); background: #1a0808; }
+.drop-btn { background: transparent; border: 1px solid var(–border); color: var(–muted); font-size: 10px; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-family: ‘DM Mono’, monospace; transition: all 0.15s; white-space: nowrap; }
+.drop-btn:hover { border-color: var(–red); color: var(–red); }
+.drop-btn.active { border-color: var(–red); color: var(–red); background: #1a0808; }
 
-  .detail-footer { padding: 10px 18px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; justify-content: space-between; }
-  .detail-footer-note { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.detail-footer { padding: 10px 18px; border-top: 1px solid var(–border); display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+.detail-footer-note { font-size: 11px; color: var(–muted); font-family: ‘DM Mono’, monospace; }
 
-  /* MODAL */
-  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
-  .overlay.open { display: flex; }
-  .modal { background: var(--surface); border: 1px solid var(--dim); border-radius: 12px; width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; padding: 28px; }
-  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: var(--accent); margin-bottom: 6px; }
-  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
-  .form-group { margin-bottom: 16px; }
-  .form-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 1px; display: block; margin-bottom: 6px; }
-  input[type=text], select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 9px 12px; outline: none; transition: border-color .15s; }
-  input[type=text]:focus, select:focus { border-color: var(--accent); }
-  input::placeholder { color: var(--dim); }
-  select option { background: var(--surface); }
-  .p-inputs { display: flex; flex-direction: column; gap: 10px; margin-bottom: 6px; }
-  .p-input-grid { display: grid; grid-template-columns: 1fr 90px; gap: 8px; }
-  .p-input-grid2 { display: grid; grid-template-columns: 1fr 80px; gap: 8px; margin-top: 4px; }
-  .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
-  .hint { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 6px; line-height: 1.5; }
-  .hint a { color: var(--accent); }
+/* MODAL */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+.overlay.open { display: flex; }
+.modal { background: var(–surface); border: 1px solid var(–dim); border-radius: 12px; width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; padding: 28px; }
+.modal-title { font-family: ‘Bebas Neue’, sans-serif; font-size: 24px; letter-spacing: 2px; color: var(–accent); margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(–muted); margin-bottom: 22px; }
+.form-group { margin-bottom: 16px; }
+.form-label { font-size: 11px; color: var(–muted); font-family: ‘DM Mono’, monospace; letter-spacing: 1px; display: block; margin-bottom: 6px; }
+input[type=text], select { width: 100%; background: var(–bg); border: 1px solid var(–border); border-radius: 6px; color: var(–text); font-family: ‘DM Sans’, sans-serif; font-size: 13px; padding: 9px 12px; outline: none; transition: border-color .15s; }
+input[type=text]:focus, select:focus { border-color: var(–accent); }
+input::placeholder { color: var(–dim); }
+select option { background: var(–surface); }
+.p-inputs { display: flex; flex-direction: column; gap: 10px; margin-bottom: 6px; }
+.p-input-grid { display: grid; grid-template-columns: 1fr 90px; gap: 8px; }
+.p-input-grid2 { display: grid; grid-template-columns: 1fr 80px; gap: 8px; margin-top: 4px; }
+.modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
+.hint { font-size: 11px; color: var(–muted); font-family: ‘DM Mono’, monospace; margin-top: 6px; line-height: 1.5; }
+.hint a { color: var(–accent); }
 
-  /* PRIZING */
-  .prize-bar {
-    display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap;
-  }
-  .prize-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 16px;
-    flex: 1; min-width: 130px;
-    text-align: center;
-  }
-  .prize-place { font-family: 'Bebas Neue', sans-serif; font-size: 20px; }
-  .prize-amount { font-size: 22px; font-weight: 500; color: var(--accent); }
-  .prize-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+/* PRIZING */
+.prize-bar {
+display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap;
+}
+.prize-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 12px 16px;
+flex: 1; min-width: 130px;
+text-align: center;
+}
+.prize-place { font-family: ‘Bebas Neue’, sans-serif; font-size: 20px; }
+.prize-amount { font-size: 22px; font-weight: 500; color: var(–accent); }
+.prize-label { font-size: 11px; color: var(–muted); margin-top: 2px; }
 
-  @media (max-width: 600px) {
-    .player-row { grid-template-columns: 1fr 50px 46px 60px; gap: 6px; padding: 8px 12px; }
-    main { padding: 16px; }
-    header { padding: 0 16px; }
-    .total-hr { font-size: 32px; }
-    .rules { flex-direction: column; gap: 10px; }
-  }
+@media (max-width: 600px) {
+.player-row { grid-template-columns: 1fr 50px 46px 60px; gap: 6px; padding: 8px 12px; }
+main { padding: 16px; }
+header { padding: 0 16px; }
+.total-hr { font-size: 32px; }
+.rules { flex-direction: column; gap: 10px; }
+}
 </style>
+
 </head>
 <body>
 
@@ -267,6 +269,7 @@
 </main>
 
 <!-- ADD MANAGER MODAL -->
+
 <div class="overlay" id="modal" onclick="overlayClick(event)">
   <div class="modal">
     <div class="modal-title">Add Manager</div>
@@ -316,7 +319,7 @@ const SEED = [
     name: 'Dan',
     players: [
       { name: 'Fernando Tatis Jr.',    id: '665487', team: 'Padres',      league: 'NL' },
-      { name: 'Jac Caglianone',        id: '694973', team: 'Royals',      league: 'AL' },
+      { name: 'Jac Caglianone',        id: '695506', team: 'Royals',      league: 'AL' },
       { name: 'Pete Crow-Armstrong',   id: '691027', team: 'Cubs',        league: 'NL' },
       { name: 'Riley Greene',          id: '682985', team: 'Tigers',      league: 'AL' },
     ]
@@ -345,7 +348,7 @@ const SEED = [
       { name: 'Yordan Alvarez',  id: '670541', team: 'Astros', league: 'AL' },
       { name: 'Rafael Devers',   id: '646240', team: 'Giants', league: 'NL' },
       { name: 'Corbin Carroll',  id: '682998', team: 'D-backs', league: 'NL' },
-      { name: 'Royce Lewis',     id: '668679', team: 'Twins',  league: 'AL' },
+      { name: 'Royce Lewis',     id: '668904', team: 'Twins',  league: 'AL' },
     ]
   },
   {
@@ -378,7 +381,7 @@ const SEED = [
   {
     name: 'Nik',
     players: [
-      { name: 'Eugenio Suárez',      id: '543939', team: 'Reds',   league: 'NL' },
+      { name: 'Eugenio Suárez',      id: '553993', team: 'Reds',   league: 'NL' },
       { name: 'Byron Buxton',        id: '621439', team: 'Twins',  league: 'AL' },
       { name: 'Colson Montgomery',   id: '695579', team: 'White Sox', league: 'AL' },
       { name: 'Elly De La Cruz',     id: '682829', team: 'Reds',   league: 'NL' },
@@ -400,14 +403,17 @@ function hydrate() {
 }
 
 // ── MLB API ───────────────────────────────────────────────────────────────────
-async function fetchHR(id) {
+async function fetchStats(id) {
   if (!id) return null;
   try {
     const r = await fetch(`https://statsapi.mlb.com/api/v1/people/${id}/stats?stats=season&season=2026&group=hitting`);
     const d = await r.json();
     const splits = d?.stats?.[0]?.splits;
-    if (splits && splits.length) return parseInt(splits[0].stat.homeRuns) || 0;
-    return 0;
+    if (splits && splits.length) {
+      const s = splits[0].stat;
+      return { hr: parseInt(s.homeRuns) || 0, avg: s.avg || '.---' };
+    }
+    return { hr: 0, avg: '.---' };
   } catch { return null; }
 }
 
@@ -415,8 +421,8 @@ async function refreshAll() {
   document.getElementById('status-text').textContent = 'Fetching live stats...';
   const ids = [...new Set(state.managers.flatMap(m => m.players.map(p => p.id)).filter(Boolean))];
   await Promise.all(ids.map(async id => {
-    const hr = await fetchHR(id);
-    if (hr !== null) cache[id] = hr;
+    const stats = await fetchStats(id);
+    if (stats !== null) cache[id] = stats;
   }));
   const now = new Date();
   document.getElementById('last-updated').textContent = `Updated ${now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}`;
@@ -428,7 +434,8 @@ async function refreshAll() {
 function score(manager) {
   const players = manager.players.map(p => ({
     ...p,
-    hr: p.id && cache[p.id] !== undefined ? cache[p.id] : null
+    hr: p.id && cache[p.id] !== undefined ? cache[p.id].hr : null,
+    avg: p.id && cache[p.id] !== undefined ? cache[p.id].avg : null
   }));
 
   let active = players.filter(p => !p.dropped);
@@ -452,8 +459,10 @@ function render() {
     const preview = m.players.map(p => p.name.split(' ').pop()).join(' · ');
 
     const rows = m.players.map(p => {
-      const hr = p.id && cache[p.id] !== undefined ? cache[p.id] : null;
+      const hr = p.id && cache[p.id] !== undefined ? cache[p.id].hr : null;
+      const avg = p.id && cache[p.id] !== undefined ? cache[p.id].avg : null;
       const hrDisplay = hr !== null ? hr : (p.id ? '…' : '—');
+      const avgDisplay = avg !== null ? avg : '—';
       const hrClass = hr !== null ? '' : 'loading';
       const isTop3 = m.top3ids.has(p.id) && !p.dropped;
       const isDropped = p.dropped;
@@ -465,6 +474,7 @@ function render() {
           <div class="p-team">${p.team} · ${p.league}</div>
         </div>
         <div class="p-hr ${hrClass}">${hrDisplay}</div>
+        <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);text-align:center;">${avgDisplay}</div>
         <div><span class="league-badge ${leagueClass}">${p.league}</span></div>
         <button class="drop-btn ${isDropped ? 'active' : ''}" onclick="toggleDrop(${m.idx},'${p.id}',event)">${isDropped ? 'RESTORE' : 'DROP'}</button>
       </div>`;
@@ -575,5 +585,6 @@ if (state.allstar) {
 render();
 refreshAll();
 </script>
+
 </body>
 </html>
